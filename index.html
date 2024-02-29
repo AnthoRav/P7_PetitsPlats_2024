@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script
+      src="https://kit.fontawesome.com/47a6ac4d25.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Les Petits Plats</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <img
+        class="banner-image"
+        src="assets/lampos-aritonang-24gR_9lCdes-unsplash 1.png"
+        alt="bannière"
+      />
+      <a href="#">
+        <img
+          class="logo"
+          src="assets/Logopetitsplats.png"
+          alt="Logo Les Petits Plats"
+        />
+      </a>
+      <div>
+        <h1>
+          CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN,SIMPLES ET
+          DÉLICIEUSES
+        </h1>
+      </div>
+      <form class="header-search">
+        <input
+          type="search"
+          id="search-recipe"
+          placeholder="Rechercher une recette, un ingrédient, ..."
+        />
+        <button>
+          <img
+            src="assets/magnifier.png"
+            class="magnifying-glass"
+            alt="loupe de recherche"
+          />
+        </button>
+      </form>
+    </header>
+    <main>
+      <section id="filter-section">
+        <div class="filters">
+          <div class="filter">
+            <button class="select-button" id="Ingredients" data-open="false">
+              <span>Ingrédients</span>
+              <span class="fa-solid fa-chevron-down" aria-hidden="true"></span>
+            </button>
+            <div class="select-dropdown hidden">
+              <div class="select-search-section">
+                <input type="search" />
+                <i class="fa fa-search"></i>
+              </div>
+              <ul class="option-list" id="ingredients-drop"></ul>
+            </div>
+          </div>
+          <div class="filter">
+            <button class="select-button" id="Appliances" data-open="false">
+              <span>Appareils</span>
+              <span class="fa-solid fa-chevron-down" aria-hidden="true"></span>
+            </button>
+            <div class="select-dropdown hidden">
+              <div class="select-search-section">
+                <input type="search" />
+                <i class="fa fa-search"></i>
+              </div>
+              <ul class="option-list" id="appliances-drop"></ul>
+            </div>
+          </div>
+          <div class="filter">
+            <button class="select-button" id="Ustensils" data-open="false">
+              <span>Ustensiles</span>
+              <span class="fa-solid fa-chevron-down" aria-hidden="true"></span>
+            </button>
+            <div class="select-dropdown hidden">
+              <div class="select-search-section">
+                <input type="search" />
+                <i class="fa fa-search"></i>
+              </div>
+              <ul class="option-list" id="ustensils-drop"></ul>
+            </div>
+          </div>
+        </div>
+        <h2 class="recipe_total"></h2>
+      </section>
+      <div class="tags_section"></div>
+      <section class="recipes_section"></section>
+    </main>
+  </body>
+
+  <script type="module" src="scripts/page/index.js"></script>
+  <script type="module" src="data/recipes.js"></script>
+  <script type="module" src="scripts/mainSearchFor.js"></script>
+  <script type="module" src="scripts/utils/searchByTag.js"></script>
+  <script type="module" src="scripts/utils/dropdownEvent.js"></script>
+</html>
