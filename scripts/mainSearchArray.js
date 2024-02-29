@@ -6,15 +6,13 @@ import { resetRecipesAndTags } from "./page/index.js";
 
 const searchRecipeInput = document.getElementById("search-recipe");
 const form = document.querySelector(".header-search");
-const results = [];
 
 searchRecipeInput.addEventListener("input", function (e) {
   const searchValue = e.target.value,
     value = searchValue.toLowerCase(); //conversion en minuscule pour normaliser les chaines de caractères
   if (value.length >= 3) {
     // Vérifie si la longueur du terme de recherche est supérieure ou égale à trois caractères
-    // Effectue la recherche automatiquement
-    searchRecipesByLoop(value);
+    searchRecipes(value);
   }
   if (value.length <= 2) {
     resetRecipesAndTags(recipes);
@@ -26,45 +24,34 @@ form.addEventListener("submit", function (event) {
   const searchTerm = searchRecipeInput.value.toLowerCase();
 
   if (searchTerm.length >= 3) {
-    searchRecipesByLoop(searchTerm);
+    searchRecipes(searchTerm);
   }
   if (searchTerm.length <= 2) {
     resetRecipesAndTags(recipes);
   }
 });
 
-export function searchRecipesByLoop(term) {
+export function searchRecipes(term) {
   const recipeCardSection = document.querySelector(".recipes_section");
   term = term.toLowerCase().trim();
-  results.length = 0;
-  // Boucle à travers les recettes
-  for (let i = 0; i < recipes.length; i++) {
-    const recipe = recipes[i];
-    const { name, ingredients, description } = recipe;
 
-    // Vérifie si le terme de recherche est présent dans le titre, les ingrédients ou la description
-    if (
-      name.toLowerCase().includes(term) ||
-      ingredients.some((ingredient) =>
+  const recipeFiltered = recipes.filter(
+    (recipe) =>
+      recipe.name.toLowerCase().includes(term) ||
+      recipe.ingredients.some((ingredient) =>
         ingredient.ingredient.toLowerCase().includes(term)
       ) ||
-      description.toLowerCase().includes(term)
-    ) {
-      results.push(recipe); // met le resultat des correspondance dans le tableau results
-    }
-  }
+      recipe.description.toLowerCase().includes(term)
+  );
   recipeCardSection.innerHTML = " "; // Vide la section des cartes de recettes
 
-  // Affiche la ou les recettes corrspondant à la recherche et affiche le nombre de recette
-  if (results.length > 0) {
-    createRecipeCards(results); // affichage des cartes du nouveau tableau
-    recipesTotal(results);
-  } else {
+  if (recipeFiltered.length === 0) {
     const noResultMsg = `<span class="no-result">Aucune recette ne contient "${term}" vous pouvez chercher «tarte aux pommes », « poisson », etc.</span> `;
     recipeCardSection.innerHTML = noResultMsg;
   }
-  //mise a jour des tags et recupération de la recherche
+  console.log(recipeFiltered);
+  createRecipeCards(recipeFiltered); // affichage des cartes du nouveau tableau
+  recipesTotal(recipeFiltered);
   setSearchTerm(term);
   filterAndDisplayUpdate(term);
-  //console.log(results);
 }
