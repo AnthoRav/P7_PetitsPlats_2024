@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { recipes } from "../data/recipes.js";
 import { createRecipeCards, recipesTotal } from "./page/index.js";
 import { setSearchTerm } from "./utils/searchState.js";
@@ -18,6 +19,8 @@ searchRecipeInput.addEventListener("input", function (e) {
   }
   if (value.length <= 2) {
     resetRecipesAndTags(recipes);
+    setSearchTerm("");
+    filterAndDisplayUpdate("");
   }
 });
 
@@ -30,6 +33,8 @@ form.addEventListener("submit", function (event) {
   }
   if (searchTerm.length <= 2) {
     resetRecipesAndTags(recipes);
+    setSearchTerm("");
+    filterAndDisplayUpdate("");
   }
 });
 
@@ -57,14 +62,15 @@ export function searchRecipesByLoop(term) {
 
   // Affiche la ou les recettes corrspondant à la recherche et affiche le nombre de recette
   if (results.length > 0) {
-    createRecipeCards(results); // affichage des cartes du nouveau tableau
-    recipesTotal(results);
+    setSearchTerm(term);
+    filterAndDisplayUpdate(term); //mise a jour des recettes, tags et total
   } else {
+    recipesTotal(results);
     const noResultMsg = `<span class="no-result">Aucune recette ne contient "${term}" vous pouvez chercher «tarte aux pommes », « poisson », etc.</span> `;
     recipeCardSection.innerHTML = noResultMsg;
   }
-  //mise a jour des tags et recupération de la recherche
+  //recupération de la recherche
   setSearchTerm(term);
-  filterAndDisplayUpdate(term);
+
   //console.log(results);
 }

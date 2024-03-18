@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { recipes } from "../../data/recipes.js";
 import { createRecipeCards, recipesTotal } from "../page/index.js";
 import { createTag, addTagToSection } from "./Tags.js";

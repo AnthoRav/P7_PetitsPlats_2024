@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const openCloseDropdown = () => {
   const dropdownButtons = document.querySelectorAll(".select-button");
   let chevron;
