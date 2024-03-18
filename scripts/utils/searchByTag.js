@@ -1,14 +1,16 @@
+// @ts-nocheck
 import { recipes } from "../../data/recipes.js";
 import { createRecipeCards, recipesTotal } from "../page/index.js";
 import { createTag, addTagToSection } from "./Tags.js";
 import { getSearchTerm } from "./searchState.js";
 
 let filteredRecipes = recipes;
+let searchTerm = getSearchTerm(); // Récupérez le terme de recherche actuel
+
 // Initialisez des tableaux vides pour les valeurs sélectionnées de chaque type de tag
 let selectedIngredients = [];
 let selectedAppliances = [];
 let selectedUstensils = [];
-
 // Met à jour les options des listes déroulantes avec les ingrédients, appareils et ustensiles uniques
 export function updateDropdownOptions(filteredRecipes) {
   // Récupère les éléments des listes déroulantes
@@ -20,7 +22,7 @@ export function updateDropdownOptions(filteredRecipes) {
   const appliancesSet = new Set();
   const ustensilsSet = new Set();
 
-  // Collecter les tags uniques des recettes filtrées
+  // Collecter les tags uniques des recettes filtrées avec normalisation des tags (majuscule à la première lettre)
   filteredRecipes.forEach((recipe) => {
     recipe.ingredients.forEach((ingredient) =>
       ingredientsSet.add(ingredient.ingredient)
@@ -67,24 +69,24 @@ dropdowns.forEach(function (dropdown) {
       selectedIngredients.forEach((tagName) => addTagToSection(tagName));
       selectedAppliances.forEach((tagName) => addTagToSection(tagName));
       selectedUstensils.forEach((tagName) => addTagToSection(tagName));
-      const currentSearchTerm = getSearchTerm(); // Récupérez le terme de recherche actuel
-      filterAndDisplayUpdate(currentSearchTerm);
+      //filterAndDisplayUpdate(searchTerm);
     }
   });
 });
 
 export function filterAndDisplayUpdate(searchTerm = "") {
   // Utilisez searchTerm pour effectuer une pré-filtration des recettes
-  if (searchTerm) {
-    filteredRecipes = recipes.filter(
-      (recipe) =>
-        recipe.name.toLowerCase().includes(searchTerm) ||
-        recipe.ingredients.some((ingredient) =>
-          ingredient.ingredient.toLowerCase().includes(searchTerm)
-        ) ||
-        recipe.description.toLowerCase().includes(searchTerm)
-    );
-  }
+  // Réinitialisez filteredRecipes à toutes les recettes si searchTerm est vide
+  filteredRecipes = searchTerm
+    ? recipes.filter(
+        (recipe) =>
+          recipe.name.toLowerCase().includes(searchTerm) ||
+          recipe.ingredients.some((ingredient) =>
+            ingredient.ingredient.toLowerCase().includes(searchTerm)
+          ) ||
+          recipe.description.toLowerCase().includes(searchTerm)
+      )
+    : recipes;
   // Filtrer les recettes en fonction des valeurs sélectionnées et mettre à jour les recettes sur la page
   filteredRecipes = filterRecipesByMultipleTags(
     selectedIngredients,
@@ -98,6 +100,8 @@ export function filterAndDisplayUpdate(searchTerm = "") {
   createRecipeCards(filteredRecipes);
   recipesTotal(filteredRecipes);
   updateDropdownOptions(filteredRecipes);
+  console.log(selectedIngredients, selectedAppliances, selectedUstensils);
+  console.log(filteredRecipes);
 }
 
 // Fonction pour ajouter ou supprimer une valeur du tableau de sélection en fonction de son état actuel
@@ -109,9 +113,8 @@ export function toggleSelection(selectedArray, value) {
     selectedArray.splice(index, 1);
     document.querySelector(`.tag[tag-name="${value}"]`).closest("li").remove();
   }
-  const currentSearchTerm = getSearchTerm(); // Récupérez le terme de recherche actuel
-  filterAndDisplayUpdate(currentSearchTerm);
-  console.log(currentSearchTerm);
+  filterAndDisplayUpdate(searchTerm);
+  console.log(searchTerm);
 }
 
 // Fonction pour filtrer les recettes en fonction des valeurs sélectionnées de chaque type de tag

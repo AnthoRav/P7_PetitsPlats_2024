@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   updateSelectedTagsState,
   filterAndDisplayUpdate,
@@ -23,17 +24,27 @@ export function createTag(tagName) {
 }
 
 export function addTagToSection(tagName) {
-  if (!document.querySelector(`.tag[tag-name="${tagName}"]`)) {
+  const tag = document.querySelector(`.tag[tag-name="${tagName}"]`);
+  if (!tag) {
     const tagElement = createTag(tagName);
     const removeBtn = tagElement.querySelector(".remove-tag");
-    //tagElement.setAttribute("tag-name", tagName); // Ajoutez un attribut pour identifier le tag
     removeBtn.style.display = "inline-block"; // Afficher le bouton de suppression
     document.querySelector(".tags_section").appendChild(tagElement);
     removeBtn.addEventListener("click", () => {
       tagElement.remove();
       updateSelectedTagsState(tagName);
-      const currentSearchTerm = getSearchTerm(); // Récupérez le terme de recherche actuel
-      filterAndDisplayUpdate(currentSearchTerm);
+      let searchTerm = getSearchTerm(); // Récupérez le terme de recherche actuel
+      filterAndDisplayUpdate(searchTerm);
     });
   }
 }
+/*
+function formatTag(tag) {
+  if (!tag) return "";
+  return tag.toLowerCase();
+}
+/*
+// Quand vous ajoutez un tag à tags_section
+const formattedTag = formatTag(tagName); // tagName est le nom du tag avant la modification
+addTagToSection(formattedTag); // Utilisez le tag formaté pour l'ajout
+*/

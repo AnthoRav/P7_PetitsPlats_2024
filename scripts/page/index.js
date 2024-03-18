@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { recipes } from "../../data/recipes.js";
 import { updateDropdownOptions } from "../utils/searchByTag.js";
 

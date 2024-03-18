@@ -16,12 +16,17 @@
     <title>Les Petits Plats</title>
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="data/recipes.js"></script>
+    <script type="module" src="scripts/page/index.js"></script>
+    <script type="module" src="scripts/mainSearchFor.js"></script>
+    <script type="module" src="scripts/utils/searchByTag.js"></script>
+    <script type="module" src="scripts/utils/dropdownEvent.js"></script>
   </head>
   <body>
     <header>
       <img
         class="banner-image"
-        src="assets/lampos-aritonang-24gR_9lCdes-unsplash 1.png"
+        src="assets/lampos-aritonang-24gR_9lCdes-unsplash1.png"
         alt="bannière"
       />
       <a href="#">
@@ -53,7 +58,7 @@
       </form>
     </header>
     <main>
-      <section id="filter-section">
+      <div id="filter-section">
         <div class="filters">
           <div class="filter">
             <button class="select-button" id="Ingredients" data-open="false">
@@ -95,16 +100,10 @@
             </div>
           </div>
         </div>
-        <h2 class="recipe_total"></h2>
-      </section>
+        <span class="recipe_total"></span>
+      </div>
       <div class="tags_section"></div>
-      <section class="recipes_section"></section>
+      <div class="recipes_section"></div>
     </main>
   </body>
-
-  <script type="module" src="scripts/page/index.js"></script>
-  <script type="module" src="data/recipes.js"></script>
-  <script type="module" src="scripts/mainSearchArray.js"></script>
-  <script type="module" src="scripts/utils/searchByTag.js"></script>
-  <script type="module" src="scripts/utils/dropdownEvent.js"></script>
 </html>

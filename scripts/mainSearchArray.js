@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { recipes } from "../data/recipes.js";
 import { createRecipeCards, recipesTotal } from "./page/index.js";
 import { setSearchTerm } from "./utils/searchState.js";
@@ -28,6 +29,7 @@ form.addEventListener("submit", function (event) {
   }
   if (searchTerm.length <= 2) {
     resetRecipesAndTags(recipes);
+    setSearchTerm("");
   }
 });
 
