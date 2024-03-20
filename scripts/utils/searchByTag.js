@@ -73,7 +73,7 @@ dropdowns.forEach(function (dropdown) {
     }
   });
 });
-
+/*
 export function filterAndDisplayUpdate(searchTerm = "") {
   // Utilisez searchTerm pour effectuer une pré-filtration des recettes
   if (searchTerm) {
@@ -100,7 +100,51 @@ export function filterAndDisplayUpdate(searchTerm = "") {
   recipesTotal(filteredRecipes);
   updateDropdownOptions(filteredRecipes);
 }
+*/
+export function filterAndDisplayUpdate(searchTerm = "") {
+  let searchTerms = searchTerm.toLowerCase().trim().split(" ");
+  console.log("Terme de recherche actuel:", getSearchTerm());
+  console.log(
+    "Tags sélectionnés:",
+    selectedIngredients,
+    selectedAppliances,
+    selectedUstensils
+  );
+  filteredRecipes = recipes.filter((recipe) => {
+    // Concatène toutes les données de la recette en une chaîne de caractères pour la recherche
+    let recipeData =
+      recipe.name +
+      " " +
+      recipe.description +
+      " " +
+      recipe.ingredients.map((ing) => ing.ingredient).join(" ");
+    recipeData = recipeData.toLowerCase();
 
+    // Assure que chaque terme de recherche est présent dans les données de la recette
+    return searchTerms.every((searchTerm) => recipeData.includes(searchTerm));
+  });
+
+  // Applique les filtres supplémentaires basés sur les tags sélectionnés ici, si nécessaire
+  filteredRecipes = filterRecipesByMultipleTags(
+    selectedIngredients,
+    selectedAppliances,
+    selectedUstensils,
+    filteredRecipes
+  );
+  // Mise à jour de l'affichage en fonction des recettes filtrées
+  const recipeCardSection = document.querySelector(".recipes_section");
+  recipeCardSection.innerHTML = ""; // Nettoie la section avant d'afficher les résultats
+
+  if (filteredRecipes.length > 0) {
+    console.log(filteredRecipes);
+    createRecipeCards(filteredRecipes); // Affiche les cartes de recettes
+    recipesTotal(filteredRecipes); // Affiche le total des recettes trouvées
+    updateDropdownOptions(filteredRecipes);
+  } else {
+    recipeCardSection.innerHTML = `<span class="no-result">Aucune recette ne correspond à votre recherche "${searchTerm}". Essayez autre chose.</span>`;
+    recipesTotal(0); // Assurez-vous que cette fonction gère correctement le cas de 0 résultat.
+  }
+}
 // Fonction pour ajouter ou supprimer une valeur du tableau de sélection en fonction de son état actuel
 export function toggleSelection(selectedArray, value) {
   const index = selectedArray.indexOf(value);

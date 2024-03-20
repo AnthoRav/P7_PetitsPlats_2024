@@ -5,14 +5,14 @@ export const openCloseDropdown = () => {
 
   function toggleDropdown(btn) {
     const dropdownContent = btn.nextElementSibling;
-    chevron = btn.querySelector(".fa-chevron-down");
+    chevron = btn.querySelector(".arrow-down");
     chevron.classList.toggle("rotate");
     dropdownContent.classList.toggle("active");
   }
 
   function closeOtherDropdowns(clickedButton) {
     dropdownButtons.forEach((btn) => {
-      chevron = btn.querySelector(".fa-chevron-down");
+      chevron = btn.querySelector(".arrow-down");
       if (btn !== clickedButton) {
         chevron.classList.remove("rotate");
         btn.nextElementSibling.classList.remove("active");

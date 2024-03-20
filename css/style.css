@@ -48,15 +48,11 @@ figure {
 /*  HEADER  */
 
 header {
+  background: url("../assets/lampos-aritonang-24gR_9lCdes-unsplash1.png") center
+    center no-repeat;
   height: 667px;
   position: relative;
   overflow: hidden;
-}
-.banner-image {
-  position: absolute;
-  width: 100%;
-  object-fit: contain;
-  z-index: -1;
 }
 .logo {
   margin-top: 50px;
@@ -112,6 +108,7 @@ main {
 
 #filter-section {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -120,27 +117,29 @@ main {
 }
 .filters {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 63px;
 }
 .filter {
   position: relative;
 }
 .select-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 17px 16px 17px 16px;
   background-color: var(--color-white);
   border-radius: 11px;
   cursor: pointer;
-  position: relative;
   text-align: left;
   font-size: 16px;
   font-weight: 500;
   height: 56px;
   width: 195px;
 }
-.fa-chevron-down {
+.arrow-down {
   font-weight: 900;
-  position: absolute;
-  right: 10%;
 }
 .rotate {
   transform: rotate(180deg);
@@ -183,15 +182,6 @@ main {
 .select-dropdown li:last-child {
   margin-bottom: 9px;
 }
-/*
-  .select-dropdown button {
-    background-color: var(--color-white);
-    width: 100%;
-    cursor: pointer;
-    text-align: left;
-    position: relative;
-  }
-  */
 .select-search-section {
   position: relative;
   display: flex;
@@ -201,13 +191,12 @@ main {
   margin: 10px 15px;
 }
 
-.select-search-section i {
+.select-search-section img {
   position: absolute;
   right: 11.5px;
   top: 50%;
-  height: 14px;
+  height: 20px;
   transform: translateY(-50%);
-  color: #c6c6c6;
 }
 
 .select-search-section input {
@@ -217,6 +206,11 @@ main {
   font-size: 16px;
   color: #c6c6c6;
   outline: none;
+}
+.recipe_total {
+  font-family: "Anton";
+  font-size: 21px;
+  font-weight: 400;
 }
 
 /* TAGS SECTION */
@@ -244,8 +238,9 @@ main {
 /* RECIPES SECTION */
 .recipes_section {
   margin: 40px 0 30px 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
 }
 .no-result {
   font-size: 22px;
@@ -257,7 +252,7 @@ main {
   height: 730px;
   border-radius: 20px;
   background-color: white;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 .card-img {
   position: relative;
@@ -320,4 +315,51 @@ main {
   font-size: 14px;
   font-weight: 400;
   color: #7a7a7a;
+}
+
+@media (max-width: 425px) {
+  header {
+    height: 520px;
+  }
+  .header-search button {
+    height: 46px;
+    width: 46px;
+    margin-left: -54px;
+  }
+  .logo {
+    margin-top: 30px;
+    margin-left: 30px;
+  }
+  h1 {
+    font-size: 32px;
+    margin: 60px 20px;
+  }
+  .header-search input {
+    height: 60px;
+    width: 90%;
+    padding-inline: 20px 70px;
+    font-size: 14px;
+  }
+  #filter-section {
+    justify-content: center;
+    gap: 40px;
+  }
+  .filters {
+    gap: 20px;
+  }
+  .tags_section {
+    margin: 30px 20px;
+  }
+  .tags_section li {
+    width: 125px;
+    height: 45px;
+    padding: 0 14px;
+  }
+  .recipes_section {
+    margin: 0 20px;
+    justify-content: center;
+  }
+  .recipe-card {
+    height: 700px;
+  }
 }

@@ -14,8 +14,9 @@ export function createTag(tagName) {
   spanElement.textContent = tagName;
 
   // Créez un bouton pour supprimer l'option sélectionnée
-  const removeBtn = document.createElement("i");
-  removeBtn.classList.add("remove-tag", "fa", "fa-times");
+  const removeBtn = document.createElement("img");
+  removeBtn.src = "../../assets/cross.svg";
+  removeBtn.classList.add("remove-tag");
   // Ajoutez le span et le bouton à l'élément <li>
   listItem.appendChild(spanElement);
   listItem.appendChild(removeBtn);
